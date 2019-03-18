@@ -11,3 +11,5 @@ data "sourcehut_paste" "testpaste" {
 data "sourcehut_blob" "testpasteblob" {
   id = "640ab2bae07bedc4c163f679a746f7ab7fb5d1fa"
 }
+
+data "sourcehut_user" "myuser" {}

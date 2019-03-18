@@ -13,10 +13,6 @@ import (
 const (
 	// Datasource Name
 	pasteName = "sourcehut_paste"
-
-	// Schema names
-	userKey          = "user"
-	canonicalUserKey = "canonical_user"
 )
 
 // dataSourcePaste returns a data source for getting information about a paste.

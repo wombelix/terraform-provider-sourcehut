@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"git.sr.ht/~samwhited/sourcehut-go"
+	"git.sr.ht/~samwhited/sourcehut-go/meta"
 	"git.sr.ht/~samwhited/sourcehut-go/paste"
 	"github.com/hashicorp/terraform/helper/schema"
 )
@@ -22,6 +23,13 @@ const (
 	idKey               = "id"
 	createdKey          = "created"
 	createdTimestampKey = "created_unix"
+	userKey             = "user"
+	canonicalUserKey    = "canonical_user"
+
+	// Meta config
+	metaURLKey = "meta_url"
+	metaURLEnv = "SRHT_META_URL"
+	metaURLDef = "https://meta.sr.ht/api"
 
 	// Paste config
 	pasteURLKey = "paste_url"
@@ -32,6 +40,16 @@ const (
 func provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
+			metaURLKey: {
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  metaURLDef,
+				Description: fmt.Sprintf(
+					`The URL to the SourceHut Meta API endpoint. It is required if using
+					a private installation of SourceHut. The default is to use the cloud
+					paste service. It can be provided via the %s environment variable.`,
+					metaURLEnv),
+			},
 			pasteURLKey: {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -55,6 +73,7 @@ func provider() *schema.Provider {
 		DataSourcesMap: map[string]*schema.Resource{
 			pasteName: dataSourcePaste(),
 			blobName:  dataSourceBlob(),
+			userName:  dataSourceUser(),
 		},
 		ConfigureFunc: configureProvider,
 	}
@@ -73,15 +92,24 @@ func configureProvider(d *schema.ResourceData) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	metaClient, err := meta.NewClient(
+		meta.SrhtClient(srhtClient),
+		meta.Base(dataOrEnv(d, metaURLKey, metaURLEnv)),
+	)
+	if err != nil {
+		return nil, err
+	}
 
 	return config{
 		srhtClient:  srhtClient,
+		metaClient:  metaClient,
 		pasteClient: pasteClient,
 	}, nil
 }
 
 type config struct {
 	srhtClient  sourcehut.Client
+	metaClient  *meta.Client
 	pasteClient *paste.Client
 }
 
