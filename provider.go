@@ -69,7 +69,9 @@ func provider() *schema.Provider {
 					tokenEnv),
 			},
 		},
-		//ResourcesMap: map[string]*schema.Resource{},
+		ResourcesMap: map[string]*schema.Resource{
+			sshKeyName: resourceSSHKey(),
+		},
 		DataSourcesMap: map[string]*schema.Resource{
 			pasteName: dataSourcePaste(),
 			blobName:  dataSourceBlob(),

@@ -13,3 +13,7 @@ data "sourcehut_blob" "testpasteblob" {
 }
 
 data "sourcehut_user" "myuser" {}
+
+resource "sourcehut_user_ssh_key" "laptop" {
+  key = "${file("~/.ssh/id_ed25519.pub")}"
+}
