@@ -71,6 +71,7 @@ func provider() *schema.Provider {
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			sshKeyName: resourceSSHKey(),
+			pgpKeyName: resourcePGPKey(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			pasteName: dataSourcePaste(),

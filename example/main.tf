@@ -17,3 +17,7 @@ data "sourcehut_user" "myuser" {}
 resource "sourcehut_user_ssh_key" "laptop" {
   key = "${file("~/.ssh/id_ed25519.pub")}"
 }
+
+resource "sourcehut_user_pgp_key" "laptop" {
+  key = "${file("pub.asc")}"
+}

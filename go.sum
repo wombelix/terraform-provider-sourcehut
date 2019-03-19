@@ -1,6 +1,6 @@
 cloud.google.com/go v0.15.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-git.sr.ht/~samwhited/sourcehut-go v0.0.0-20190319010653-eea424c2f69e h1:y1ojLWYjCuYqqzxkl+CuRh8n+r2m9My0CBgIr90nwcU=
-git.sr.ht/~samwhited/sourcehut-go v0.0.0-20190319010653-eea424c2f69e/go.mod h1:E9UvpvpB0pjjx5OyNndgvwzH6xAUcIPW5AW2DSvCqro=
+git.sr.ht/~samwhited/sourcehut-go v0.0.0-20190319160218-d3f67aefad1b h1:3fs42fwRJ7NXEXD5KMtFEMgsi30Zwf47Mv2han4960U=
+git.sr.ht/~samwhited/sourcehut-go v0.0.0-20190319160218-d3f67aefad1b/go.mod h1:E9UvpvpB0pjjx5OyNndgvwzH6xAUcIPW5AW2DSvCqro=
 github.com/Azure/azure-sdk-for-go v10.3.0-beta+incompatible/go.mod h1:9XXNKU+eRnpl9moKnB4QOLf1HestfXbmab5FXxiDBjc=
 github.com/Azure/go-autorest v9.10.0+incompatible/go.mod h1:r+4oMnoxhatjLLJ6zxSWATqVooLgysK6ZNox3g/xq24=
 github.com/Azure/go-ntlmssp v0.0.0-20170803034930-c92175d54006/go.mod h1:chxPXzSsl7ZWRAuOIE23GDNzjWuZquvFlgA8xmpunjU=
