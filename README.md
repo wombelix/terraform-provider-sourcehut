@@ -45,6 +45,12 @@ see the `example/` tree.
 
 To submit a patch, first read the [mailing list etiquette] and [contribution]
 guides and then send patches to the [mailing list].
+Please prefix the subject with `[PATCH terraform-provider-sourcehut]`.
+To configure your checkout of this repo to always use the correct prefix and
+send to the correct list cd into the repo and run:
+
+    git config sendemail.to ~samwhited/terraform-provider-sourcehut@lists.sr.ht
+    git config format.subjectPrefix 'PATCH terraform-provider-sourcehut'
 
 [mailing list etiquette]: https://man.sr.ht/lists.sr.ht/etiquette.md
 [contribution]: https://man.sr.ht/git.sr.ht/send-email.md
