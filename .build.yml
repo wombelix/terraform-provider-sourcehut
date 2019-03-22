@@ -1,0 +1,31 @@
+image: freebsd/latest
+packages:
+  - go
+sources:
+  - https://git.sr.ht/~samwhited/terraform-provider-sourcehut/
+environment:
+  GO111MODULE: 'on'
+tasks:
+  - setup: |
+      go version
+      go env
+      go get -u golang.org/x/lint/golint
+      go get -u github.com/securego/gosec/cmd/gosec
+  - test: |
+      cd terraform-provider-sourcehut/
+      go test -v ./...
+  - lint: |
+      cd terraform-provider-sourcehut/
+      `go env GOPATH`/bin/golint -set_exit_status ./...
+  - vet: |
+      cd terraform-provider-sourcehut/
+      go vet ./...
+  - fmt: |
+      cd terraform-provider-sourcehut/
+      gofmt -s -l . && [ -z "$(gofmt -s -l .)" ]
+  - gosec: |
+      cd terraform-provider-sourcehut/
+      `go env GOPATH`/bin/gosec ./...
+  - build: |
+      cd terraform-provider-sourcehut/
+      make
