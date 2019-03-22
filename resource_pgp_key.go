@@ -81,8 +81,7 @@ func resourcePGPKeyRead(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	setPGPKey(d, key)
-	return nil
+	return setPGPKey(d, key)
 }
 
 func resourcePGPKeyCreate(d *schema.ResourceData, meta interface{}) error {
@@ -92,8 +91,7 @@ func resourcePGPKeyCreate(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	setPGPKey(d, key)
-	return nil
+	return setPGPKey(d, key)
 }
 
 func resourcePGPKeyDelete(d *schema.ResourceData, meta interface{}) error {
@@ -105,13 +103,31 @@ func resourcePGPKeyDelete(d *schema.ResourceData, meta interface{}) error {
 	return config.metaClient.DeletePGPKey(id)
 }
 
-func setPGPKey(d *schema.ResourceData, key meta.PGPKey) {
+func setPGPKey(d *schema.ResourceData, key meta.PGPKey) error {
 	d.SetId(strconv.FormatInt(key.ID, 10))
-	d.Set(idKey, key.ID)
-	d.Set(createdKey, key.Authorized.Format(time.RFC3339))
-	d.Set(createdTimestampKey, key.Authorized.Unix())
-	d.Set(userKey, key.Owner.Name)
-	d.Set(canonicalUserKey, key.Owner.CanonicalName)
-	d.Set(fingerprintKey, key.KeyID)
-	d.Set(keyKey, key.Key)
+	err := d.Set(idKey, key.ID)
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdKey, key.Authorized.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdTimestampKey, key.Authorized.Unix())
+	if err != nil {
+		return err
+	}
+	err = d.Set(userKey, key.Owner.Name)
+	if err != nil {
+		return err
+	}
+	err = d.Set(canonicalUserKey, key.Owner.CanonicalName)
+	if err != nil {
+		return err
+	}
+	err = d.Set(fingerprintKey, key.KeyID)
+	if err != nil {
+		return err
+	}
+	return d.Set(keyKey, key.Key)
 }

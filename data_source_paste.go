@@ -58,9 +58,17 @@ func dataSourcePasteRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	d.SetId(paste.ID)
-	d.Set(createdKey, paste.Created.Format(time.RFC3339))
-	d.Set(createdTimestampKey, paste.Created.Unix())
-	d.Set(userKey, paste.User.Name)
-	d.Set(canonicalUserKey, paste.User.CanonicalName)
-	return nil
+	err = d.Set(createdKey, paste.Created.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdTimestampKey, paste.Created.Unix())
+	if err != nil {
+		return err
+	}
+	err = d.Set(userKey, paste.User.Name)
+	if err != nil {
+		return err
+	}
+	return d.Set(canonicalUserKey, paste.User.CanonicalName)
 }

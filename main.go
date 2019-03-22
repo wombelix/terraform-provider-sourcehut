@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 )
 
+// Build time configuration.
 var (
 	Version = "devel"
 	Commit  = ""

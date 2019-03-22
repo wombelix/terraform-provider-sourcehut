@@ -74,12 +74,29 @@ func dataSourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	d.SetId(user.Name)
-	d.Set(userKey, user.Name)
-	d.Set(canonicalUserKey, user.CanonicalName)
-	d.Set(emailKey, user.Email)
-	d.Set(urlKey, user.URL)
-	d.Set(locationKey, user.Location)
-	d.Set(bioKey, user.Bio)
-	d.Set(pgpKeyKey, user.UsePGPKey)
-	return nil
+	err = d.Set(userKey, user.Name)
+	if err != nil {
+		return err
+	}
+	err = d.Set(canonicalUserKey, user.CanonicalName)
+	if err != nil {
+		return err
+	}
+	err = d.Set(emailKey, user.Email)
+	if err != nil {
+		return err
+	}
+	err = d.Set(urlKey, user.URL)
+	if err != nil {
+		return err
+	}
+	err = d.Set(locationKey, user.Location)
+	if err != nil {
+		return err
+	}
+	err = d.Set(bioKey, user.Bio)
+	if err != nil {
+		return err
+	}
+	return d.Set(pgpKeyKey, user.UsePGPKey)
 }

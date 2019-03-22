@@ -16,7 +16,9 @@ import (
 
 const (
 	// All config
+	/* #nosec */
 	tokenKey = "token"
+	/* #nosec */
 	tokenEnv = "SRHT_TOKEN"
 
 	// Common key names

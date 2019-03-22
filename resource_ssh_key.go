@@ -103,8 +103,7 @@ func resourceSSHKeyRead(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	setKey(d, key)
-	return nil
+	return setKey(d, key)
 }
 
 func resourceSSHKeyCreate(d *schema.ResourceData, meta interface{}) error {
@@ -114,8 +113,7 @@ func resourceSSHKeyCreate(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	setKey(d, key)
-	return nil
+	return setKey(d, key)
 }
 
 func resourceSSHKeyDelete(d *schema.ResourceData, meta interface{}) error {
@@ -127,16 +125,43 @@ func resourceSSHKeyDelete(d *schema.ResourceData, meta interface{}) error {
 	return config.metaClient.DeleteSSHKey(id)
 }
 
-func setKey(d *schema.ResourceData, key meta.SSHKey) {
+func setKey(d *schema.ResourceData, key meta.SSHKey) error {
 	d.SetId(strconv.FormatInt(key.ID, 10))
-	d.Set(idKey, key.ID)
-	d.Set(createdKey, key.Authorized.Format(time.RFC3339))
-	d.Set(createdTimestampKey, key.Authorized.Unix())
-	d.Set(userKey, key.Owner.Name)
-	d.Set(canonicalUserKey, key.Owner.CanonicalName)
-	d.Set(commentKey, key.Comment)
-	d.Set(fingerprintKey, key.Fingerprint)
-	d.Set(lastUsedKey, key.LastUsed.Format(time.RFC3339))
-	d.Set(lastUsedTimestampKey, key.LastUsed.Unix())
-	d.Set(keyKey, key.Key)
+	err := d.Set(idKey, key.ID)
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdKey, key.Authorized.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdTimestampKey, key.Authorized.Unix())
+	if err != nil {
+		return err
+	}
+	err = d.Set(userKey, key.Owner.Name)
+	if err != nil {
+		return err
+	}
+	err = d.Set(canonicalUserKey, key.Owner.CanonicalName)
+	if err != nil {
+		return err
+	}
+	err = d.Set(commentKey, key.Comment)
+	if err != nil {
+		return err
+	}
+	err = d.Set(fingerprintKey, key.Fingerprint)
+	if err != nil {
+		return err
+	}
+	err = d.Set(lastUsedKey, key.LastUsed.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	err = d.Set(lastUsedTimestampKey, key.LastUsed.Unix())
+	if err != nil {
+		return err
+	}
+	return d.Set(keyKey, key.Key)
 }

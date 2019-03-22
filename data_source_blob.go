@@ -57,8 +57,13 @@ func dataSourceBlobRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	d.SetId(blob.ID)
-	d.Set(createdKey, blob.Created.Format(time.RFC3339))
-	d.Set(createdTimestampKey, blob.Created.Unix())
-	d.Set(contentsKey, blob.Contents)
-	return nil
+	err = d.Set(createdKey, blob.Created.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdTimestampKey, blob.Created.Unix())
+	if err != nil {
+		return err
+	}
+	return d.Set(contentsKey, blob.Contents)
 }
