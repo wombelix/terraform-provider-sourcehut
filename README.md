@@ -23,9 +23,6 @@ website] and the [GitHub project page].
 
 ## Using the Provider
 
-The current version of this provider has been tested with Terraform v0.11.13 or
-higher.
-
 Until the provider finds its way into the Terraform repository or your favorite
 operating systems package repository, you will need to build the provider and
 install it manually.

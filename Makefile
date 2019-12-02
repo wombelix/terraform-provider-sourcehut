@@ -15,11 +15,12 @@ GOLDFLAGS =-s -w
 GOLDFLAGS+=-X main.Commit=$(COMMIT)
 GOLDFLAGS+=-X main.Version=$(VERSION)
 GOLDFLAGS+=-extldflags $(LDFLAGS)
-GCFLAGS  = all=-trimpath=$(.CURDIR)
-ASMFLAGS = all=-trimpath=$(.CURDIR)
+GCFLAGS  =
+ASMFLAGS =
 
 terraform-provider-sourcehut: go.mod $(GOFILES)
 	$(GO) build \
+		-trimpath \
 		-gcflags="$(GCFLAGS)" \
 		-asmflags="$(ASMFLAGS)" \
 		-tags "$(TAGS)" \
