@@ -27,37 +27,37 @@ func dataSourceUser() *schema.Resource {
 		Read: dataSourceUserRead,
 
 		Schema: map[string]*schema.Schema{
-			userKey: &schema.Schema{
+			userKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The name of the authenticated user (eg. 'example').",
 			},
-			canonicalUserKey: &schema.Schema{
+			canonicalUserKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The canonical name of the authenticated user (eg. '~example').",
 			},
-			emailKey: &schema.Schema{
+			emailKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The users email.",
 			},
-			urlKey: &schema.Schema{
+			urlKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The users URL.",
 			},
-			locationKey: &schema.Schema{
+			locationKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The users location.",
 			},
-			bioKey: &schema.Schema{
+			bioKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The users bio.",
 			},
-			pgpKeyKey: &schema.Schema{
+			pgpKeyKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The users preferred PGP key.",

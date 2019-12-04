@@ -28,33 +28,33 @@ const (
 // repo datasource.
 func repoSchema() map[string]*schema.Schema {
 	return map[string]*schema.Schema{
-		nameKey: &schema.Schema{
+		nameKey: {
 			Type:        schema.TypeString,
 			Required:    true,
 			Description: "The name of the repository.",
 		},
-		descKey: &schema.Schema{
+		descKey: {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "A description of the repository.",
 		},
-		visiKey: &schema.Schema{
+		visiKey: {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Default:     "public",
 			Description: `The visibility of the repository ("public", "unlisted", or "private").`,
 		},
-		createdKey: &schema.Schema{
+		createdKey: {
 			Type:        schema.TypeString,
 			Computed:    true,
 			Description: "The date on which the repo was created in RFC3339 format.",
 		},
-		createdTimestampKey: &schema.Schema{
+		createdTimestampKey: {
 			Type:        schema.TypeInt,
 			Computed:    true,
 			Description: "The date on which the repo was created as a unix timestamp.",
 		},
-		subjectKey: &schema.Schema{
+		subjectKey: {
 			Type:        schema.TypeString,
 			Computed:    true,
 			Description: "The message subject.",

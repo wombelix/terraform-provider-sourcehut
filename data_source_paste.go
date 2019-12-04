@@ -21,27 +21,27 @@ func dataSourcePaste() *schema.Resource {
 		Read: dataSourcePasteRead,
 
 		Schema: map[string]*schema.Schema{
-			idKey: &schema.Schema{
+			idKey: {
 				Type:        schema.TypeString,
 				Required:    true,
 				Description: "The SHA1 hash of the paste.",
 			},
-			createdKey: &schema.Schema{
+			createdKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The date on which the paste was created in RFC3339 format.",
 			},
-			createdTimestampKey: &schema.Schema{
+			createdTimestampKey: {
 				Type:        schema.TypeInt,
 				Computed:    true,
 				Description: "The date on which the paste was created as a unix timestamp.",
 			},
-			userKey: &schema.Schema{
+			userKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The name of the user that owns the paste (eg. 'example').",
 			},
-			canonicalUserKey: &schema.Schema{
+			canonicalUserKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The canonical name of the user that owns the paste (eg. '~example').",

@@ -27,33 +27,33 @@ func resourcePGPKey() *schema.Resource {
 			State: resourcePGPKeyImport,
 		},
 		Schema: map[string]*schema.Schema{
-			keyKey: &schema.Schema{
+			keyKey: {
 				Type:        schema.TypeString,
 				Required:    true,
 				ForceNew:    true,
 				Description: "The armored PGP key.",
 			},
-			createdKey: &schema.Schema{
+			createdKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The date on which the key was authorized in RFC3339 format.",
 			},
-			createdTimestampKey: &schema.Schema{
+			createdTimestampKey: {
 				Type:        schema.TypeInt,
 				Computed:    true,
 				Description: "The date on which the key was authorized as a unix timestamp.",
 			},
-			userKey: &schema.Schema{
+			userKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The name of the user that owns the key (eg. 'example').",
 			},
-			canonicalUserKey: &schema.Schema{
+			canonicalUserKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The canonical name of the user that owns the key (eg. '~example').",
 			},
-			fingerprintKey: &schema.Schema{
+			fingerprintKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The fingerprint of the key.",

@@ -34,48 +34,48 @@ func resourceSSHKey() *schema.Resource {
 			State: resourceSSHKeyImport,
 		},
 		Schema: map[string]*schema.Schema{
-			keyKey: &schema.Schema{
+			keyKey: {
 				Type:        schema.TypeString,
 				Required:    true,
 				ForceNew:    true,
 				Description: "The key in authorized_keys format.",
 			},
-			createdKey: &schema.Schema{
+			createdKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The date on which the key was authorized in RFC3339 format.",
 			},
-			createdTimestampKey: &schema.Schema{
+			createdTimestampKey: {
 				Type:        schema.TypeInt,
 				Computed:    true,
 				Description: "The date on which the key was authorized as a unix timestamp.",
 			},
-			userKey: &schema.Schema{
+			userKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The name of the user that owns the key (eg. 'example').",
 			},
-			canonicalUserKey: &schema.Schema{
+			canonicalUserKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The canonical name of the user that owns the key (eg. '~example').",
 			},
-			commentKey: &schema.Schema{
+			commentKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The comment on the key.",
 			},
-			fingerprintKey: &schema.Schema{
+			fingerprintKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The fingerprint of the key.",
 			},
-			lastUsedKey: &schema.Schema{
+			lastUsedKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The date on which the key was last used in RFC3339 format.",
 			},
-			lastUsedTimestampKey: &schema.Schema{
+			lastUsedTimestampKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The date on which the key was last used as a unix timestamp.",

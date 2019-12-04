@@ -25,22 +25,22 @@ func dataSourceBlob() *schema.Resource {
 		Read: dataSourceBlobRead,
 
 		Schema: map[string]*schema.Schema{
-			idKey: &schema.Schema{
+			idKey: {
 				Type:        schema.TypeString,
 				Required:    true,
 				Description: "The SHA1 hash of the paste.",
 			},
-			createdKey: &schema.Schema{
+			createdKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The date on which the paste was created in RFC3339 format.",
 			},
-			createdTimestampKey: &schema.Schema{
+			createdTimestampKey: {
 				Type:        schema.TypeInt,
 				Computed:    true,
 				Description: "The date on which the paste was created as a unix timestamp.",
 			},
-			contentsKey: &schema.Schema{
+			contentsKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "The files contents as a UTF-8 encoded string.",
