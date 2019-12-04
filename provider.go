@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"git.sr.ht/~samwhited/sourcehut-go"
+	"git.sr.ht/~samwhited/sourcehut-go/git"
 	"git.sr.ht/~samwhited/sourcehut-go/meta"
 	"git.sr.ht/~samwhited/sourcehut-go/paste"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -37,6 +38,11 @@ const (
 	pasteURLKey = "paste_url"
 	pasteURLEnv = "SRHT_PASTE_URL"
 	pasteURLDef = "https://paste.sr.ht/api"
+
+	// Git config
+	gitURLKey = "git_url"
+	gitURLEnv = "SRHT_GIT_URL"
+	gitURLDef = "https://git.sr.ht/api"
 )
 
 func provider() *schema.Provider {
@@ -62,6 +68,16 @@ func provider() *schema.Provider {
 					paste service. It can be provided via the %s environment variable.`,
 					pasteURLEnv),
 			},
+			gitURLKey: {
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  gitURLDef,
+				Description: fmt.Sprintf(
+					`The URL to the SourceHut Paste API endpoint. It is required if using
+					a private installation of SourceHut. The default is to use the cloud
+					git service. It can be provided via the %s environment variable.`,
+					gitURLEnv),
+			},
 			tokenKey: {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -74,11 +90,13 @@ func provider() *schema.Provider {
 		ResourcesMap: map[string]*schema.Resource{
 			sshKeyName: resourceSSHKey(),
 			pgpKeyName: resourcePGPKey(),
+			repoName:   resourceRepo(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			pasteName: dataSourcePaste(),
 			blobName:  dataSourceBlob(),
 			userName:  dataSourceUser(),
+			repoName:  dataSourceRepo(),
 		},
 		ConfigureFunc: configureProvider,
 	}
@@ -104,11 +122,19 @@ func configureProvider(d *schema.ResourceData) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	gitClient, err := git.NewClient(
+		git.SrhtClient(srhtClient),
+		git.Base(dataOrEnv(d, gitURLKey, gitURLEnv)),
+	)
+	if err != nil {
+		return nil, err
+	}
 
 	return config{
 		srhtClient:  srhtClient,
 		metaClient:  metaClient,
 		pasteClient: pasteClient,
+		gitClient:   gitClient,
 	}, nil
 }
 
@@ -116,6 +142,7 @@ type config struct {
 	srhtClient  sourcehut.Client
 	metaClient  *meta.Client
 	pasteClient *paste.Client
+	gitClient   *git.Client
 }
 
 func dataOrEnv(d *schema.ResourceData, key, env string) string {

@@ -5,7 +5,7 @@ go 1.13
 require (
 	cloud.google.com/go v0.49.0 // indirect
 	cloud.google.com/go/storage v1.4.0 // indirect
-	git.sr.ht/~samwhited/sourcehut-go v0.0.2
+	git.sr.ht/~samwhited/sourcehut-go v0.0.3
 	github.com/aws/aws-sdk-go v1.25.44 // indirect
 	github.com/bmatcuk/doublestar v1.2.0 // indirect
 	github.com/golang/groupcache v0.0.0-20191027212112-611e8accdfc9 // indirect
