@@ -1,33 +1,27 @@
 <!--
+    SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
     SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 
     SPDX-License-Identifier: BSD-2-Clause
 -->
 
-# Terraform SourceHut Provider
+# OpenTofu / Terraform Provider for sourcehut (sr.ht)
 
-[![Issue Tracker][badge]][issues]
-[![Patches][listbadge]][mailing list]
+Based on the work from [SamWhited / terraform-provider-sourcehut](https://codeberg.org/SamWhited/terraform-provider-sourcehut)
 
-[badge]: https://img.shields.io/badge/style-todo.sr.ht-green.svg?longCache=true&style=popout-square&label=issues
-[listbadge]: https://img.shields.io/badge/style-lists.sr.ht-blue.svg?longCache=true&style=popout-square&label=patches
-[issues]: https://todo.sr.ht/~samwhited/terraform-provider-sourcehut
+---
 
+[![REUSE status](https://api.reuse.software/badge/git.sr.ht/~wombelix/terraform-provider-sourcehut)](https://api.reuse.software/info/git.sr.ht/~wombelix/terraform-provider-sourcehut)
+[![builds.sr.ht status](https://builds.sr.ht/~wombelix/terraform-provider-sourcehut.svg)](https://builds.sr.ht/~wombelix/terraform-provider-sourcehut?)
 
-This is the repository for the Terraform SourceHut (srht) Provider, which one
-can use with Terraform to manage resources such as Git repos and issue trackers
-on [SourceHut].
+## Table of Contents
 
-[SourceHut]: https://sourcehut.org/
+* [Usage](#usage)
+* [Source](#source)
+* [Contribute](#contribute)
+* [License](#license)
 
-For general information about Terraform, visit the [official
-website] and the [GitHub project page].
-
-[official website]: https://www.terraform.io/
-[GitHub project page]: https://github.com/hashicorp/terraform
-
-
-## Using the Provider
+## Usage
 
 Until the provider finds its way into the Terraform repository or your favorite
 operating systems package repository, you will need to build the provider and
@@ -43,18 +37,35 @@ see the `example/` tree.
 
 [third party plugins]: https://www.terraform.io/docs/configuration/providers.html#third-party-plugins
 
+## Source
 
-## Submitting Patches
+The primary location is:
+[git.sr.ht/~wombelix/terraform-provider-sourcehut](https://git.sr.ht/~wombelix/terraform-provider-sourcehut)
 
-To submit a patch, first read the [mailing list etiquette] and [contribution]
-guides and then send patches to the [mailing list].
-Please prefix the subject with `[PATCH terraform-provider-sourcehut]`.
-To configure your checkout of this repo to always use the correct prefix and
-send to the correct list cd into the repo and run:
+Mirrors are available on
+[Codeberg](https://codeberg.org/wombelix/terraform-provider-sourcehut),
+[Gitlab](https://gitlab.com/wombelix/terraform-provider-sourcehut)
+and
+[Github](https://github.com/wombelix/terraform-provider-sourcehut).
 
-    git config sendemail.to ~samwhited/patches@lists.sr.ht
-    git config format.subjectPrefix 'PATCH terraform-provider-sourcehut'
+## Contribute
 
-[mailing list etiquette]: https://man.sr.ht/lists.sr.ht/etiquette.md
-[contribution]: https://man.sr.ht/git.sr.ht/send-email.md
-[mailing list]: https://lists.sr.ht/~samwhited/patches
+Please don't hesitate to provide Feedback,
+open an Issue or create a Pull / Merge Request.
+
+Just pick the workflow or platform you prefer and are most comfortable with.
+
+Feedback, bug reports or patches to my sr.ht list
+[~wombelix/inbox@lists.sr.ht](https://lists.sr.ht/~wombelix/inbox) or via
+[Email and Instant Messaging](https://dominik.wombacher.cc/pages/contact.html)
+are also always welcome.
+
+## License
+
+Unless otherwise stated: `BSD-2-Clause`
+
+All files contain license information either as
+`header comment` or `corresponding .license` file.
+
+[REUSE](https://reuse.software) from the [FSFE](https://fsfe.org/)
+implemented to verify license and copyright compliance.
