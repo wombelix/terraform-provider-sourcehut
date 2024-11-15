@@ -6,7 +6,7 @@
 image: debian/stable
 
 packages:
-  - go
+  - golang
 
 sources:
   - https://git.sr.ht/~wombelix/terraform-provider-sourcehut/
@@ -23,6 +23,17 @@ environment:
   GO111MODULE: 'on'
 
 tasks:
+  - mirror: |
+      cd build-helper-scripts
+      source git-mirror.sh
+      cd ..
+
+      cd terraform-provider-sourcehut
+
+      git_mirror "$GIT_MIRROR_SSH_KEY" "$GIT_MIRROR_GITHUB"
+      git_mirror "$GIT_MIRROR_SSH_KEY" "$GIT_MIRROR_GITLAB"
+      git_mirror "$GIT_MIRROR_SSH_KEY" "$GIT_MIRROR_CODEBERG"
+
   - setup: |
       go version
       go env
