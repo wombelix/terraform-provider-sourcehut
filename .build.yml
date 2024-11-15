@@ -35,6 +35,7 @@ tasks:
       git_mirror "$GIT_MIRROR_SSH_KEY" "$GIT_MIRROR_CODEBERG"
 
   - setup: |
+      cd terraform-provider-sourcehut/
       go version
       go env
       go get -u golang.org/x/lint/golint
@@ -63,3 +64,8 @@ tasks:
   - build: |
       cd terraform-provider-sourcehut/
       make
+
+triggers:
+  - action: email
+    condition: failure
+    to: dominik@wombacher.cc
