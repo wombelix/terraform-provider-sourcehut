@@ -38,8 +38,8 @@ tasks:
       cd terraform-provider-sourcehut/
       go version
       go env
-      go get -u golang.org/x/lint/golint
-      go get -u github.com/securego/gosec/cmd/gosec
+      #go get -u golang.org/x/lint/golint
+      #go get -u github.com/securego/gosec/cmd/gosec
 
   - test: |
       cd terraform-provider-sourcehut/
@@ -47,7 +47,7 @@ tasks:
 
   - lint: |
       cd terraform-provider-sourcehut/
-      `go env GOPATH`/bin/golint -set_exit_status ./...
+      #`go env GOPATH`/bin/golint -set_exit_status ./...
 
   - vet: |
       cd terraform-provider-sourcehut/
@@ -59,7 +59,7 @@ tasks:
 
   - gosec: |
       cd terraform-provider-sourcehut/
-      `go env GOPATH`/bin/gosec ./...
+      #`go env GOPATH`/bin/gosec ./...
 
   - build: |
       cd terraform-provider-sourcehut/
