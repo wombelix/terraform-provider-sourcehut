@@ -1,3 +1,9 @@
+<!--
+    SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
+
+    SPDX-License-Identifier: BSD-2-Clause
+-->
+
 # Terraform SourceHut Provider
 
 [![Issue Tracker][badge]][issues]

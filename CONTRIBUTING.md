@@ -1,3 +1,9 @@
+<!--
+    SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
+
+    SPDX-License-Identifier: BSD-2-Clause
+-->
+
 ## Submitting Patches
 
 To submit a patch, first learn to use `git send-email` by reading
