@@ -19,8 +19,8 @@ cloud.google.com/go/storage v1.0.0/go.mod h1:IhtSnM/ZTZV8YYJWCY8RULGVqBDmpoyjwiy
 cloud.google.com/go/storage v1.4.0 h1:KDdqY5VTXBTqpSbctVTt0mVvfanP6JZzNzLE0qNY100=
 cloud.google.com/go/storage v1.4.0/go.mod h1:ZusYJWlOshgSBGbt6K3GnB3MT3H1xs2id9+TCl4fDBA=
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
-git.sr.ht/~samwhited/sourcehut-go v0.0.3 h1:6+MccpaW0LQIm8JszY7S4MzD2CRy4O2zz0X8ELJR6jE=
-git.sr.ht/~samwhited/sourcehut-go v0.0.3/go.mod h1:cX5UFF5cCayE5EAKuJmpPtHMsuVR4QC4jlfYBNmtIh8=
+git.sr.ht/~wombelix/sourcehut-go v0.0.3 h1:6+MccpaW0LQIm8JszY7S4MzD2CRy4O2zz0X8ELJR6jE=
+git.sr.ht/~wombelix/sourcehut-go v0.0.3/go.mod h1:cX5UFF5cCayE5EAKuJmpPtHMsuVR4QC4jlfYBNmtIh8=
 github.com/Azure/azure-sdk-for-go v21.3.0+incompatible/go.mod h1:9XXNKU+eRnpl9moKnB4QOLf1HestfXbmab5FXxiDBjc=
 github.com/Azure/go-autorest v10.15.4+incompatible/go.mod h1:r+4oMnoxhatjLLJ6zxSWATqVooLgysK6ZNox3g/xq24=
 github.com/Azure/go-ntlmssp v0.0.0-20180810175552-4a21cbd618b4/go.mod h1:chxPXzSsl7ZWRAuOIE23GDNzjWuZquvFlgA8xmpunjU=

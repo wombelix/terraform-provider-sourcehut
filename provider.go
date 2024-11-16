@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"os"
 
-	"git.sr.ht/~samwhited/sourcehut-go"
-	"git.sr.ht/~samwhited/sourcehut-go/git"
-	"git.sr.ht/~samwhited/sourcehut-go/meta"
-	"git.sr.ht/~samwhited/sourcehut-go/paste"
+	"git.sr.ht/~wombelix/sourcehut-go"
+	"git.sr.ht/~wombelix/sourcehut-go/git"
+	"git.sr.ht/~wombelix/sourcehut-go/meta"
+	"git.sr.ht/~wombelix/sourcehut-go/paste"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
@@ -105,7 +105,7 @@ func provider() *schema.Provider {
 func configureProvider(d *schema.ResourceData) (interface{}, error) {
 	srhtClient := sourcehut.NewClient(
 		sourcehut.Token(dataOrEnv(d, tokenKey, tokenEnv)),
-		sourcehut.UserAgent("git.sr.ht/~samwhited/terraform-provider-sourcehut"),
+		sourcehut.UserAgent("git.sr.ht/~wombelix/terraform-provider-sourcehut"),
 	)
 
 	pasteClient, err := paste.NewClient(

@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"git.sr.ht/~samwhited/sourcehut-go/meta"
+	"git.sr.ht/~wombelix/sourcehut-go/meta"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
