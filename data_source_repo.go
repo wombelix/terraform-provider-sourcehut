@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 // dataSourceRepo returns a data source for getting information about a

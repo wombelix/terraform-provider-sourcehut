@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"git.sr.ht/~wombelix/sourcehut-go/git"
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 const (

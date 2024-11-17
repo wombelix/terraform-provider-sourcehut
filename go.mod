@@ -7,24 +7,17 @@ require (
 	cloud.google.com/go/storage v1.4.0 // indirect
 	git.sr.ht/~wombelix/sourcehut-go v0.0.0-20241116125539-481bf3ae9e3e
 	github.com/aws/aws-sdk-go v1.25.44 // indirect
-	github.com/bmatcuk/doublestar v1.2.0 // indirect
 	github.com/golang/groupcache v0.0.0-20191027212112-611e8accdfc9 // indirect
 	github.com/hashicorp/go-hclog v0.10.0 // indirect
-	github.com/hashicorp/go-plugin v1.0.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.1.0 // indirect
-	github.com/hashicorp/hcl2 v0.0.0-20191002203319-fb75b3253c80 // indirect
-	github.com/hashicorp/hil v0.0.0-20190212132231-97b3a9cdfa93 // indirect
-	github.com/hashicorp/terraform v0.12.16
+	github.com/hashicorp/terraform-plugin-sdk v1.7.0
 	github.com/hashicorp/terraform-svchost v0.0.0-20191119180714-d2e4933b9136 // indirect
 	github.com/hashicorp/yamux v0.0.0-20190923154419-df201c70410d // indirect
 	github.com/jstemmer/go-junit-report v0.9.1 // indirect
-	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/posener/complete v1.2.3 // indirect
-	github.com/spf13/afero v1.2.2 // indirect
 	github.com/ulikunitz/xz v0.5.6 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
-	github.com/zclconf/go-cty v1.1.1 // indirect
 	go.opencensus.io v0.22.2 // indirect
 	golang.org/x/crypto v0.0.0-20191128160524-b544559bb6d1 // indirect
 	golang.org/x/exp v0.0.0-20191129062945-2f5052295587 // indirect
