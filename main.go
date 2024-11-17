@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
 // SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 //
 // SPDX-License-Identifier: BSD-2-Clause
@@ -5,8 +6,7 @@
 package main
 
 import (
-	"github.com/hashicorp/terraform-plugin-sdk/plugin"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 )
 
 // Build time configuration.
@@ -17,8 +17,5 @@ var (
 
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
-		ProviderFunc: func() terraform.ResourceProvider {
-			return provider()
-		},
-	})
+		ProviderFunc: provider})
 }

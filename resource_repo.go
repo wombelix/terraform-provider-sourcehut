@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
 // SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 //
 // SPDX-License-Identifier: BSD-2-Clause
@@ -10,7 +11,7 @@ import (
 	"time"
 
 	"git.sr.ht/~wombelix/sourcehut-go/git"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 const (
