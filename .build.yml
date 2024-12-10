@@ -5,9 +5,6 @@
 
 image: debian/stable
 
-packages:
-  - golang
-
 sources:
   - https://git.sr.ht/~wombelix/terraform-provider-sourcehut/
   - https://git.sr.ht/~wombelix/build-helper-scripts
@@ -35,9 +32,14 @@ tasks:
       git_mirror "$GIT_MIRROR_SSH_KEY" "$GIT_MIRROR_CODEBERG"
 
   - setup: |
-      cd terraform-provider-sourcehut/
+      curl -sSfLO https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
+      sudo rm -rf /usr/local/go && sudo tar -C /usr/local/ -xzf go1.23.4.linux-amd64.tar.gz
+      sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
+      sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+
       go version
       go env
+
       curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.62.2
       curl -sSfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.21.4
 
