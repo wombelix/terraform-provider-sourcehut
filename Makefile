@@ -30,3 +30,11 @@ terraform-provider-sourcehut: go.mod $(GOFILES)
 		-tags "$(TAGS)" \
 		-o $@ \
 		-ldflags "$(GOLDFLAGS)"
+
+clean:
+	rm terraform-provider-sourcehut
+
+bump:
+	@echo bump go dependencies and module versions
+	go get -u ./...
+	go mod tidy

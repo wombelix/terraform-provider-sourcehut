@@ -68,7 +68,7 @@ tasks:
       make
 
 artifacts:
-- terraform-provider-sourcehut/terraform-provider-sourcehut
+  - terraform-provider-sourcehut/terraform-provider-sourcehut
 
 triggers:
   - action: email
