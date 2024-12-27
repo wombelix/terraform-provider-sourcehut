@@ -19,3 +19,6 @@ func main() {
 	plugin.Serve(&plugin.ServeOpts{
 		ProviderFunc: provider})
 }
+
+// Generate documentation for TF registry
+//go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-dir . -provider-name sourcehut
