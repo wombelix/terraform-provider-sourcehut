@@ -2,7 +2,7 @@
     SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
     SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 
-    SPDX-License-Identifier: BSD-2-Clause
+    SPDX-License-Identifier: CC0-1.0
 -->
 
 # OpenTofu / Terraform Provider for sourcehut (sr.ht)
