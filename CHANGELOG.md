@@ -1,3 +1,9 @@
+## v0.2.0 (2024-12-27)
+
+### Feat
+
+- Config and Doc to publish provider
+
 ## v0.1.0 (2024-12-27)
 
 ### Feat
