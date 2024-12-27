@@ -3,7 +3,7 @@ module git.sr.ht/~wombelix/terraform-provider-sourcehut
 go 1.23
 
 require (
-	git.sr.ht/~wombelix/sourcehut-go v0.0.0-20241226123417-791fc546a342
+	git.sr.ht/~wombelix/sourcehut-go v0.1.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.35.0
 )
 

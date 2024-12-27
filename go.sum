@@ -1,5 +1,5 @@
-git.sr.ht/~wombelix/sourcehut-go v0.0.0-20241226123417-791fc546a342 h1:BGhBN/jdlCNSnJglrfJwrDhKe1QHPrha5e8DoJHXxds=
-git.sr.ht/~wombelix/sourcehut-go v0.0.0-20241226123417-791fc546a342/go.mod h1:wg+EYb5xZw0wZFY2dMG0CdogewUQBB7JtqfgJXi3W9k=
+git.sr.ht/~wombelix/sourcehut-go v0.1.0 h1:3fG+n7um2sUfuzKXPA51IXWVrvvoFDuMguuTUoGI1UA=
+git.sr.ht/~wombelix/sourcehut-go v0.1.0/go.mod h1:2ZWXS7MhkNIdswIWdQNideTqJV+8gJmW8OqLK/ehnac=
 github.com/agext/levenshtein v1.2.3 h1:YB2fHEn0UJagG8T1rrWknE3ZQzWM06O8AMAatNn7lmo=
 github.com/agext/levenshtein v1.2.3/go.mod h1:JEDfjyjHDjOF/1e4FlBE/PkbqA9OfWu2ki2W0IB5558=
 github.com/apparentlymart/go-textseg/v12 v12.0.0/go.mod h1:S/4uRK2UtaQttw1GenVJEynmyUenKwP++x/+DdGV/Ec=
