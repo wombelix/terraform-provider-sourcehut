@@ -48,6 +48,12 @@ Mirrors are available on
 and
 [Github](https://github.com/wombelix/terraform-provider-sourcehut).
 
+Publishing to
+[registry.terraform.io](https://registry.terraform.io/providers/wombelix/sourcehut/latest)
+and
+[search.opentofu.org](https://search.opentofu.org/provider/wombelix/sourcehut/latest)
+is handled by the GitHub mirror.
+
 ## Contribute
 
 Please don't hesitate to provide Feedback,
