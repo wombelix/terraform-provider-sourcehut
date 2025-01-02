@@ -1,5 +1,5 @@
 <!--
-    SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
+    SPDX-FileCopyrightText: 2024-2025 Dominik Wombacher <dominik@wombacher.cc>
     SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 
     SPDX-License-Identifier: CC0-1.0
@@ -23,19 +23,44 @@ Based on the work from [SamWhited / terraform-provider-sourcehut](https://codebe
 
 ## Usage
 
-Until the provider finds its way into the Terraform repository or your favorite
-operating systems package repository, you will need to build the provider and
-install it manually.
+The provider is available in the
+[OpenTofu](https://search.opentofu.org/provider/wombelix/sourcehut/latest)
+and
+[Terraform](https://registry.terraform.io/providers/wombelix/sourcehut/latest)
+registry.
 
-After the build is complete (try running `make`), copy the
-`terraform-provider-sourcehut` binary into the third party plugins directory
-(eg. `~/.terraform.d/plugins`) and re-run `terraform init`.
-For more information, see the documentation about [third party plugins].
+Example usage in a `provider.tf` file:
 
-The documentation is not being built yet, so for an example of the plugins use
-see the `example/` tree.
+```
+terraform {
+  required_version = ">= 1.8"
+  required_providers {
+    sourcehut = {
+      source  = "wombelix/sourcehut"
+      version = "0.2.0"
 
-[third party plugins]: https://www.terraform.io/docs/configuration/providers.html#third-party-plugins
+      # SRHT_TOKEN env var
+    }
+  }
+}
+```
+
+The sourcehut [oauth personal access tokens](https://meta.sr.ht/oauth)
+will be read from Environment variable `SRHT_TOKEN`.
+
+You also have the option to build the provider and install it manually.
+
+After the build is complete (`make`), copy the `terraform-provider-sourcehut`
+binary into the third party plugins directory (e.g. `~/.terraform.d/plugins`)
+and re-run `terraform init`. For more information, see the documentation about
+[third party plugins](https://www.terraform.io/docs/configuration/providers.html#third-party-plugins).
+
+The documentation can be found in the`docs/` sub-folder. The online version is
+available in the
+[OpenTofu](https://search.opentofu.org/provider/wombelix/sourcehut/latest)
+and
+[Terraform](https://registry.terraform.io/providers/wombelix/sourcehut/latest)
+registry.
 
 ## Source
 
