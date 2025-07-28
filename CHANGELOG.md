@@ -1,3 +1,9 @@
+## v0.2.1 (2025-07-28)
+
+### Fix
+
+- bump sourcehut-go to v0.1.1 to fix repo desc update issues
+
 ## v0.2.0 (2024-12-27)
 
 ### Feat
