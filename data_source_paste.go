@@ -6,6 +6,7 @@
 package main
 
 import (
+	"context"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -53,7 +54,7 @@ func dataSourcePaste() *schema.Resource {
 
 func dataSourcePasteRead(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(config)
-	paste, err := config.pasteClient.Get(d.Get("id").(string))
+	paste, err := config.client.GetPaste(context.Background(), d.Get("id").(string))
 	if err != nil {
 		return err
 	}
@@ -67,7 +68,7 @@ func dataSourcePasteRead(d *schema.ResourceData, meta interface{}) error {
 	if err != nil {
 		return err
 	}
-	err = d.Set(userKey, paste.User.Name)
+	err = d.Set(userKey, paste.User.Username)
 	if err != nil {
 		return err
 	}

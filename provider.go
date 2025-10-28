@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
+// SPDX-FileCopyrightText: 2025 Dominik Wombacher <dominik@wombacher.cc>
 // SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 //
 // SPDX-License-Identifier: BSD-2-Clause
@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"git.sr.ht/~wombelix/sourcehut-go"
-	"git.sr.ht/~wombelix/sourcehut-go/git"
-	"git.sr.ht/~wombelix/sourcehut-go/meta"
-	"git.sr.ht/~wombelix/sourcehut-go/paste"
+	"git.sr.ht/~wombelix/terraform-provider-sourcehut/internal/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -104,46 +101,22 @@ func provider() *schema.Provider {
 }
 
 func configureProvider(d *schema.ResourceData) (interface{}, error) {
-	srhtClient := sourcehut.NewClient(
-		sourcehut.Token(dataOrEnv(d, tokenKey, tokenEnv)),
-		sourcehut.UserAgent("git.sr.ht/~wombelix/terraform-provider-sourcehut"),
-	)
+	token := dataOrEnv(d, tokenKey, tokenEnv)
 
-	pasteClient, err := paste.NewClient(
-		paste.SrhtClient(srhtClient),
-		paste.Base(dataOrEnv(d, pasteURLKey, pasteURLEnv)),
-	)
-	if err != nil {
-		return nil, err
-	}
-	metaClient, err := meta.NewClient(
-		meta.SrhtClient(srhtClient),
-		meta.Base(dataOrEnv(d, metaURLKey, metaURLEnv)),
-	)
-	if err != nil {
-		return nil, err
-	}
-	gitClient, err := git.NewClient(
-		git.SrhtClient(srhtClient),
-		git.Base(dataOrEnv(d, gitURLKey, gitURLEnv)),
-	)
+	c, err := client.NewClient(token)
 	if err != nil {
 		return nil, err
 	}
 
-	return config{
-		srhtClient:  srhtClient,
-		metaClient:  metaClient,
-		pasteClient: pasteClient,
-		gitClient:   gitClient,
+	return &config{
+		client: c,
 	}, nil
 }
 
 type config struct {
-	srhtClient  sourcehut.Client
-	metaClient  *meta.Client
-	pasteClient *paste.Client
-	gitClient   *git.Client
+	client *client.Client
+	// We keep client as a single instance to handle all services
+	// instead of having separate clients for each service
 }
 
 func dataOrEnv(d *schema.ResourceData, key, env string) string {

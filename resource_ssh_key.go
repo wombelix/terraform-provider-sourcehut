@@ -6,10 +6,14 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
-	"git.sr.ht/~wombelix/sourcehut-go/meta"
+	"git.sr.ht/~wombelix/terraform-provider-sourcehut/internal/client"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -27,12 +31,12 @@ const (
 
 func resourceSSHKey() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceSSHKeyCreate,
-		Read:   resourceSSHKeyRead,
-		Delete: resourceSSHKeyDelete,
+		CreateContext: resourceSSHKeyCreate,
+		ReadContext:   resourceSSHKeyRead,
+		DeleteContext: resourceSSHKeyDelete,
 
 		Importer: &schema.ResourceImporter{
-			State: resourceSSHKeyImport,
+			StateContext: resourceSSHKeyImport,
 		},
 		Schema: map[string]*schema.Schema{
 			keyKey: {
@@ -85,84 +89,100 @@ func resourceSSHKey() *schema.Resource {
 	}
 }
 
-func resourceSSHKeyImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-	err := resourceSSHKeyRead(d, meta)
-	if err != nil {
-		return nil, err
+func resourceSSHKeyImport(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	diags := resourceSSHKeyRead(ctx, d, m)
+	if diags.HasError() {
+		return nil, fmt.Errorf("error reading sourcehut SSH key: %v", diags[0].Summary)
 	}
 	return []*schema.ResourceData{d}, nil
 }
 
-func resourceSSHKeyRead(d *schema.ResourceData, meta interface{}) error {
-	config := meta.(config)
+func resourceSSHKeyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	var diags diag.Diagnostics
+	config := m.(*config)
+
 	id, err := strconv.ParseInt(d.Id(), 10, 64)
 	if err != nil {
-		return err
-	}
-	key, err := config.metaClient.GetSSHKey(id)
-	if err != nil {
-		return err
+		return diag.FromErr(fmt.Errorf("invalid resource id: %s", d.Id()))
 	}
 
-	return setKey(d, key)
+	key, err := config.client.GetSSHKey(ctx, int(id))
+	if err != nil {
+		if strings.Contains(err.Error(), "404") {
+			d.SetId("")
+			return diags
+		}
+		return diag.FromErr(err)
+	}
+
+	if err := setKey(d, key); err != nil {
+		return diag.FromErr(err)
+	}
+
+	return diags
 }
 
-func resourceSSHKeyCreate(d *schema.ResourceData, meta interface{}) error {
-	config := meta.(config)
-	key, err := config.metaClient.NewSSHKey(d.Get(keyKey).(string))
+func resourceSSHKeyCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	config := m.(*config)
+
+	key, err := config.client.CreateSSHKey(ctx, d.Get(keyKey).(string))
 	if err != nil {
-		return err
+		return diag.FromErr(err)
 	}
 
-	return setKey(d, key)
+	if err := setKey(d, key); err != nil {
+		return diag.FromErr(err)
+	}
+
+	return diag.Diagnostics{}
 }
 
-func resourceSSHKeyDelete(d *schema.ResourceData, meta interface{}) error {
-	config := meta.(config)
+func resourceSSHKeyDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	var diags diag.Diagnostics
+	config := m.(*config)
+
 	id, err := strconv.ParseInt(d.Id(), 10, 64)
 	if err != nil {
-		return err
+		return diag.FromErr(fmt.Errorf("invalid resource id: %s", d.Id()))
 	}
-	return config.metaClient.DeleteSSHKey(id)
+
+	if err := config.client.DeleteSSHKey(ctx, int(id)); err != nil {
+		return diag.FromErr(err)
+	}
+
+	return diags
 }
 
-func setKey(d *schema.ResourceData, key meta.SSHKey) error {
-	d.SetId(strconv.FormatInt(key.ID, 10))
-	err := d.Set(idKey, key.ID)
-	if err != nil {
-		return err
+func setKey(d *schema.ResourceData, key *client.SSHKey) error {
+	d.SetId(strconv.FormatInt(int64(key.ID), 10))
+
+	if err := d.Set(createdKey, key.Created.Format(time.RFC3339)); err != nil {
+		return fmt.Errorf("error setting created key: %s", err)
 	}
-	err = d.Set(createdKey, key.Authorized.Format(time.RFC3339))
-	if err != nil {
-		return err
+
+	if err := d.Set(createdTimestampKey, key.Created.Unix()); err != nil {
+		return fmt.Errorf("error setting created timestamp key: %s", err)
 	}
-	err = d.Set(createdTimestampKey, key.Authorized.Unix())
-	if err != nil {
-		return err
+
+	if err := d.Set(commentKey, key.Comment); err != nil {
+		return fmt.Errorf("error setting comment key: %s", err)
 	}
-	err = d.Set(userKey, key.Owner.Name)
-	if err != nil {
-		return err
+
+	if err := d.Set(fingerprintKey, key.Fingerprint); err != nil {
+		return fmt.Errorf("error setting fingerprint key: %s", err)
 	}
-	err = d.Set(canonicalUserKey, key.Owner.CanonicalName)
-	if err != nil {
-		return err
+
+	if err := d.Set(lastUsedKey, key.LastUsed.Format(time.RFC3339)); err != nil {
+		return fmt.Errorf("error setting last used key: %s", err)
 	}
-	err = d.Set(commentKey, key.Comment)
-	if err != nil {
-		return err
+
+	if err := d.Set(lastUsedTimestampKey, key.LastUsed.Unix()); err != nil {
+		return fmt.Errorf("error setting last used timestamp key: %s", err)
 	}
-	err = d.Set(fingerprintKey, key.Fingerprint)
-	if err != nil {
-		return err
+
+	if err := d.Set(keyKey, key.Key); err != nil {
+		return fmt.Errorf("error setting key: %s", err)
 	}
-	err = d.Set(lastUsedKey, key.LastUsed.Format(time.RFC3339))
-	if err != nil {
-		return err
-	}
-	err = d.Set(lastUsedTimestampKey, key.LastUsed.Unix())
-	if err != nil {
-		return err
-	}
-	return d.Set(keyKey, key.Key)
+
+	return nil
 }

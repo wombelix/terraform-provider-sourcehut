@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 Dominik Wombacher <dominik@wombacher.cc>
+// SPDX-FileCopyrightText: 2025 Dominik Wombacher <dominik@wombacher.cc>
 // SPDX-FileCopyrightText: 2019 The SourceHut API Contributors
 //
 // SPDX-License-Identifier: BSD-2-Clause
@@ -6,12 +6,15 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 	"time"
 
-	"git.sr.ht/~wombelix/sourcehut-go/git"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
+	"git.sr.ht/~emersion/gqlclient"
+	"git.sr.ht/~wombelix/terraform-provider-sourcehut/internal/client"
 )
 
 const (
@@ -79,12 +82,13 @@ func resourceRepo() *schema.Resource {
 
 func resourceRepoCreate(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(config)
-	visibility := git.RepoVisibility(d.Get(visiKey).(string))
-	repo, err := config.gitClient.NewRepo(
-		d.Get(nameKey).(string),
-		d.Get(descKey).(string),
-		visibility,
-	)
+	input := client.RepositoryInput{
+		Name:        d.Get(nameKey).(string),
+		Description: d.Get(descKey).(string),
+		Visibility:  d.Get(visiKey).(string),
+	}
+
+	repo, err := config.client.CreateRepository(context.Background(), input)
 	if err != nil {
 		return err
 	}
@@ -98,25 +102,19 @@ func resourceRepoRead(d *schema.ResourceData, meta interface{}) error {
 
 func repoRead(d *schema.ResourceData, meta interface{}, importing bool) error {
 	config := meta.(config)
+	ctx := context.Background()
 
 	name := d.Id()
 	if !importing {
 		name = d.Get(nameKey).(string)
 	}
 
-	repo, err := config.gitClient.Repo("", name)
-	var statusCode int
-	if e, ok := err.(interface {
-		StatusCode() int
-	}); ok {
-		statusCode = e.StatusCode()
-	}
-	// If the error resulted from a 404, mark the resource as deleted.
-	if statusCode == http.StatusNotFound {
-		d.SetId("")
-		return nil
-	}
+	repo, err := config.client.GetRepository(ctx, name)
 	if err != nil {
+		if httpErr, ok := err.(*gqlclient.HTTPError); ok && httpErr.StatusCode == http.StatusNotFound {
+			d.SetId("")
+			return nil
+		}
 		return err
 	}
 
@@ -125,18 +123,22 @@ func repoRead(d *schema.ResourceData, meta interface{}, importing bool) error {
 
 func resourceRepoDelete(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(config)
-	return config.gitClient.DeleteRepo(d.Get(nameKey).(string))
+	id, _ := strconv.Atoi(d.Id())
+	return config.client.DeleteRepository(context.Background(), id)
 }
 
 func resourceRepoUpdate(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(config)
-	oldName, newName := d.GetChange(nameKey)
-	repo := &git.Repo{
+	id, _ := strconv.Atoi(d.Id())
+
+	input := client.RepositoryInput{
+		Name:        d.Get(nameKey).(string),
 		Description: d.Get(descKey).(string),
-		Name:        newName.(string),
-		Visibility:  git.RepoVisibility(d.Get(visiKey).(string)),
+		Visibility:  d.Get(visiKey).(string),
 	}
-	return config.gitClient.UpdateRepo(oldName.(string), repo)
+
+	_, err := config.client.UpdateRepository(context.Background(), id, input)
+	return err
 }
 
 func resourceRepoImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
@@ -147,12 +149,8 @@ func resourceRepoImport(d *schema.ResourceData, meta interface{}) ([]*schema.Res
 	return []*schema.ResourceData{d}, nil
 }
 
-func setRepo(d *schema.ResourceData, repo *git.Repo) error {
-	d.SetId(strconv.FormatInt(repo.ID, 10))
-	//err := d.Set(idKey, repo.ID)
-	//if err != nil {
-	//	return err
-	//}
+func setRepo(d *schema.ResourceData, repo *client.Repository) error {
+	d.SetId(strconv.Itoa(repo.ID))
 	err := d.Set(createdKey, repo.Created.Format(time.RFC3339))
 	if err != nil {
 		return err
@@ -169,7 +167,7 @@ func setRepo(d *schema.ResourceData, repo *git.Repo) error {
 	if err != nil {
 		return err
 	}
-	err = d.Set(visiKey, string(repo.Visibility))
+	err = d.Set(visiKey, repo.Visibility)
 	if err != nil {
 		return err
 	}

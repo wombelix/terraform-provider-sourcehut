@@ -6,6 +6,8 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -52,17 +54,30 @@ func dataSourceBlob() *schema.Resource {
 
 func dataSourceBlobRead(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(config)
-	blob, err := config.pasteClient.GetBlob(d.Get("id").(string))
+	pasteID := d.Get("id").(string)
+
+	// Get the paste first to identify its files
+	paste, err := config.client.GetPaste(context.Background(), pasteID)
 	if err != nil {
 		return err
 	}
 
-	d.SetId(blob.ID)
-	err = d.Set(createdKey, blob.Created.Format(time.RFC3339))
+	if len(paste.Files) == 0 {
+		return fmt.Errorf("no files found in paste")
+	}
+
+	// Get the actual blob content
+	blob, err := config.client.GetPasteBlob(context.Background(), pasteID, paste.Files[0].Hash)
 	if err != nil {
 		return err
 	}
-	err = d.Set(createdTimestampKey, blob.Created.Unix())
+
+	d.SetId(blob.Hash)
+	err = d.Set(createdKey, paste.Created.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	err = d.Set(createdTimestampKey, paste.Created.Unix())
 	if err != nil {
 		return err
 	}

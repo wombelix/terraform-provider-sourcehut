@@ -6,6 +6,8 @@
 package main
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -69,13 +71,13 @@ func dataSourceUser() *schema.Resource {
 
 func dataSourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(config)
-	user, err := config.metaClient.GetUser()
+	user, err := config.client.GetCurrentUser(context.Background())
 	if err != nil {
 		return err
 	}
 
-	d.SetId(user.Name)
-	err = d.Set(userKey, user.Name)
+	d.SetId(user.Username)
+	err = d.Set(userKey, user.Username)
 	if err != nil {
 		return err
 	}
@@ -99,5 +101,6 @@ func dataSourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	if err != nil {
 		return err
 	}
-	return d.Set(pgpKeyKey, user.UsePGPKey)
+	// pgpKeyKey is not available in the GraphQL API response yet
+	return nil
 }
