@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.23.3
 
 require (
-	git.sr.ht/~wombelix/sourcehut-go v0.1.1
+	git.sr.ht/~emersion/gqlclient v0.0.0-20250318184027-d4a003529bba
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.37.0
 )
 
@@ -37,7 +37,6 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/oklog/run v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
-	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
