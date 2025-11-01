@@ -89,7 +89,7 @@ func resourceRepoCreate(d *schema.ResourceData, meta interface{}) error {
 	input := client.RepositoryInput{
 		Name:        d.Get(nameKey).(string),
 		Description: d.Get(descKey).(string),
-		Visibility:  d.Get(visiKey).(string),
+		Visibility:  strings.ToUpper(d.Get(visiKey).(string)),
 	}
 
 	repo, err := config.client.CreateRepository(context.Background(), input)
@@ -138,7 +138,7 @@ func resourceRepoUpdate(d *schema.ResourceData, meta interface{}) error {
 	input := client.RepositoryInput{
 		Name:        d.Get(nameKey).(string),
 		Description: d.Get(descKey).(string),
-		Visibility:  d.Get(visiKey).(string),
+		Visibility:  strings.ToUpper(d.Get(visiKey).(string)),
 	}
 
 	_, err := config.client.UpdateRepository(context.Background(), id, input)
