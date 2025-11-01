@@ -101,7 +101,7 @@ func resourceRepoRead(d *schema.ResourceData, meta interface{}) error {
 }
 
 func repoRead(d *schema.ResourceData, meta interface{}, importing bool) error {
-	config := meta.(config)
+	config := meta.(*config)
 	ctx := context.Background()
 
 	name := d.Id()
