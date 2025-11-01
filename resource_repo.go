@@ -134,11 +134,15 @@ func resourceRepoDelete(d *schema.ResourceData, meta interface{}) error {
 func resourceRepoUpdate(d *schema.ResourceData, meta interface{}) error {
 	config := meta.(*config)
 	id, _ := strconv.Atoi(d.Id())
+	oldName, newName := d.GetChange(nameKey)
 
 	input := client.RepositoryInput{
-		Name:        d.Get(nameKey).(string),
 		Description: d.Get(descKey).(string),
 		Visibility:  strings.ToUpper(d.Get(visiKey).(string)),
+	}
+
+	if oldName.(string) != newName.(string) {
+		input.Name = newName.(string)
 	}
 
 	_, err := config.client.UpdateRepository(context.Background(), id, input)
