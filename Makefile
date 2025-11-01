@@ -38,3 +38,6 @@ bump:
 	@echo bump go dependencies and module versions
 	go get -u ./...
 	go mod tidy
+
+test:
+	go test ./...
