@@ -9,6 +9,23 @@
 
 Based on the work from [SamWhited / terraform-provider-sourcehut](https://codeberg.org/SamWhited/terraform-provider-sourcehut)
 
+**!!! IMPORTANT !!!**: The sr.ht legacy REST API was deprecated a while
+ago and is now in its
+[final phase of removal](https://sourcehut.org/blog/2025-09-01-whats-cooking-q3-2025/).
+From version v1.0.0 of the provider uses the GraphQL API directly and
+doesn't rely on the project
+[sourcehut-go](https://git.sr.ht/~wombelix/sourcehut-go) and the legacy
+REST API anymore. This is a breaking change, because you to create and use an
+[Oauth2 Personal Access Token](https://meta.sr.ht/oauth2) now.
+
+Personal Access Token Scope:
+
+```
+git.sr.ht/PROFILE:RO git.sr.ht/REPOSITORIES:RW
+paste.sr.ht/PROFILE:RO paste.sr.ht/PASTES:RW
+meta.sr.ht/PGP_KEYS:RW meta.sr.ht/SSH_KEYS:RW meta.sr.ht/PROFILE:RO
+```
+
 ---
 
 [![REUSE status](https://api.reuse.software/badge/git.sr.ht/~wombelix/terraform-provider-sourcehut)](https://api.reuse.software/info/git.sr.ht/~wombelix/terraform-provider-sourcehut)
@@ -45,8 +62,16 @@ terraform {
 }
 ```
 
-The sourcehut [oauth personal access tokens](https://meta.sr.ht/oauth)
+The sourcehut [oauth2 personal access tokens](https://meta.sr.ht/oauth2)
 will be read from Environment variable `SRHT_TOKEN`.
+
+The recommended scope is:
+
+```
+git.sr.ht/PROFILE:RO git.sr.ht/REPOSITORIES:RW
+paste.sr.ht/PROFILE:RO paste.sr.ht/PASTES:RW
+meta.sr.ht/PGP_KEYS:RW meta.sr.ht/SSH_KEYS:RW meta.sr.ht/PROFILE:RO
+```
 
 You also have the option to build the provider and install it manually.
 
