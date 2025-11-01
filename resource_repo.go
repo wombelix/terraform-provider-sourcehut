@@ -85,7 +85,7 @@ func resourceRepo() *schema.Resource {
 }
 
 func resourceRepoCreate(d *schema.ResourceData, meta interface{}) error {
-	config := meta.(config)
+	config := meta.(*config)
 	input := client.RepositoryInput{
 		Name:        d.Get(nameKey).(string),
 		Description: d.Get(descKey).(string),
@@ -126,13 +126,13 @@ func repoRead(d *schema.ResourceData, meta interface{}, importing bool) error {
 }
 
 func resourceRepoDelete(d *schema.ResourceData, meta interface{}) error {
-	config := meta.(config)
+	config := meta.(*config)
 	id, _ := strconv.Atoi(d.Id())
 	return config.client.DeleteRepository(context.Background(), id)
 }
 
 func resourceRepoUpdate(d *schema.ResourceData, meta interface{}) error {
-	config := meta.(config)
+	config := meta.(*config)
 	id, _ := strconv.Atoi(d.Id())
 
 	input := client.RepositoryInput{
