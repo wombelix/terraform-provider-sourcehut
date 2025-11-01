@@ -9,6 +9,7 @@ import (
 	"context"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -45,8 +46,11 @@ func repoSchema() map[string]*schema.Schema {
 		visiKey: {
 			Type:        schema.TypeString,
 			Optional:    true,
-			Default:     "public",
+			Default:     "PUBLIC",
 			Description: `The visibility of the repository ("public", "unlisted", or "private").`,
+			StateFunc: func(v interface{}) string {
+				return strings.ToUpper(v.(string))
+			},
 		},
 		createdKey: {
 			Type:        schema.TypeString,
