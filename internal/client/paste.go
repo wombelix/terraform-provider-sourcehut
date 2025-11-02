@@ -14,11 +14,11 @@ import (
 
 // Paste represents a paste in the sourcehut API
 type Paste struct {
-	ID      string    `json:"id"`
-	Created time.Time `json:"created"`
-	Visibility string `json:"visibility"`
-	User    *User     `json:"user"`
-	Files   []File    `json:"files"`
+	ID         string    `json:"id"`
+	Created    time.Time `json:"created"`
+	Visibility string    `json:"visibility"`
+	User       *User     `json:"user"`
+	Files      []File    `json:"files"`
 }
 
 // File represents a file in a paste
