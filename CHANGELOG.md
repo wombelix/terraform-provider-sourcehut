@@ -1,3 +1,9 @@
+## v1.0.1 (2025-11-02)
+
+### Fix
+
+- **docs**: tfdocs updated, README adjusted because of breaking changes
+
 ## v1.0.0 (2025-11-02)
 
 ### Feat
