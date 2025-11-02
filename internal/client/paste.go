@@ -16,12 +16,14 @@ import (
 type Paste struct {
 	ID      string    `json:"id"`
 	Created time.Time `json:"created"`
+	Visibility string `json:"visibility"`
 	User    *User     `json:"user"`
 	Files   []File    `json:"files"`
 }
 
 // File represents a file in a paste
 type File struct {
+	Filename string `json:"filename"`
 	Hash     string `json:"hash"`
 	Contents string `json:"contents"`
 }

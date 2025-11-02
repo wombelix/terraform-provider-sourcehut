@@ -16,4 +16,7 @@ type User struct {
 	URL           string    `json:"url"`
 	Location      string    `json:"location"`
 	Bio           string    `json:"bio"`
+	PGPKeys       struct {
+		Results []PGPKey `json:"results"`
+	} `json:"pgpKeys"`
 }

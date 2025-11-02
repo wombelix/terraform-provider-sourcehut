@@ -6,6 +6,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"git.sr.ht/~emersion/gqlclient"
@@ -174,11 +175,12 @@ func (c *Client) GetPGPKey(ctx context.Context, id int) (*PGPKey, error) {
 	// Find the key with matching ID
 	for _, key := range resp.Me.PGPKeys.Results {
 		if key.ID == id {
-			return &key, nil
+			result := key
+			return &result, nil
 		}
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("PGP key with ID %d not found", id)
 }
 
 // DeletePGPKey deletes a PGP key by ID
@@ -209,6 +211,13 @@ func (c *Client) GetCurrentUser(ctx context.Context) (*User, error) {
 				url
 				location
 				bio
+				pgpKeys {
+					results {
+						id
+						key
+						fingerprint
+					}
+				}
 			}
 		}
 	`)

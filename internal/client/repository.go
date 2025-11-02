@@ -116,6 +116,7 @@ func (c *Client) UpdateRepository(ctx context.Context, id int, input RepositoryI
 	`)
 
 	op.Var("id", id)
+
 	inputMap := map[string]interface{}{
 		"description": input.Description,
 		"visibility":  input.Visibility,
@@ -123,6 +124,7 @@ func (c *Client) UpdateRepository(ctx context.Context, id int, input RepositoryI
 	if input.Name != "" {
 		inputMap["name"] = input.Name
 	}
+
 	op.Var("input", inputMap)
 
 	var resp struct {
