@@ -11,7 +11,9 @@ import (
 
 func init() {
 	// Set TF_SCHEMA_PANIC_ON_ERROR as a sanity check on tests.
-	os.Setenv("TF_SCHEMA_PANIC_ON_ERROR", "true")
+	if err := os.Setenv("TF_SCHEMA_PANIC_ON_ERROR", "true"); err != nil {
+		panic(err)
+	}
 }
 
 func TestProvider(t *testing.T) {
