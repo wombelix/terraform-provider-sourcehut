@@ -51,3 +51,10 @@ release:
 
 	# Push tag (triggers sr.ht build git mirroring)
 	git push origin --tags
+
+generate:
+	@echo generate terraform plugin documentation
+	go get github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
+	go generate
+	git restore docs/data-sources/*.md.license
+	git restore docs/resources/*.md.license
