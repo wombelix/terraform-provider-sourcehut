@@ -101,6 +101,14 @@ func dataSourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	if err != nil {
 		return err
 	}
-	// pgpKeyKey is not available in the GraphQL API response yet
+
+	// Set preferred PGP key (first one if available)
+	if len(user.PGPKeys.Results) > 0 {
+		err = d.Set(pgpKeyKey, user.PGPKeys.Results[0].Key)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

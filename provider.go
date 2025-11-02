@@ -71,7 +71,7 @@ func provider() *schema.Provider {
 				Optional: true,
 				Default:  gitURLDef,
 				Description: fmt.Sprintf(
-					`The URL to the SourceHut Paste API endpoint. It is required if using
+					`The URL to the SourceHut Git API endpoint. It is required if using
 					a private installation of SourceHut. The default is to use the cloud
 					git service. It can be provided via the %s environment variable.`,
 					gitURLEnv),
