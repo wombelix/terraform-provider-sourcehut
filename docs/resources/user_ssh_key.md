@@ -28,5 +28,5 @@ description: |-
 - `fingerprint` (String) The fingerprint of the key.
 - `id` (String) The ID of this resource.
 - `last_used` (String) The date on which the key was last used in RFC3339 format.
-- `last_used_timestamp` (String) The date on which the key was last used as a unix timestamp.
+- `last_used_timestamp` (Number) The date on which the key was last used as a unix timestamp.
 - `user` (String) The name of the user that owns the key (eg. 'example').
