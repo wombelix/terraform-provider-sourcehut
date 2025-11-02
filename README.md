@@ -15,16 +15,8 @@ ago and is now in its
 From version v1.0.0 of the provider uses the GraphQL API directly and
 doesn't rely on the project
 [sourcehut-go](https://git.sr.ht/~wombelix/sourcehut-go) and the legacy
-REST API anymore. This is a breaking change, because you to create and use an
-[Oauth2 Personal Access Token](https://meta.sr.ht/oauth2) now.
-
-Personal Access Token Scope:
-
-```
-git.sr.ht/PROFILE:RO git.sr.ht/REPOSITORIES:RW
-paste.sr.ht/PROFILE:RO paste.sr.ht/PASTES:RW
-meta.sr.ht/PGP_KEYS:RW meta.sr.ht/SSH_KEYS:RW meta.sr.ht/PROFILE:RO
-```
+REST API anymore. This is a breaking change,
+see [Usage](#usage) for more details.
 
 ---
 
