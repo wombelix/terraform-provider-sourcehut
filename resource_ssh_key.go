@@ -9,7 +9,6 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"strings"
 	"time"
 
 	"git.sr.ht/~wombelix/terraform-provider-sourcehut/internal/client"
@@ -81,7 +80,7 @@ func resourceSSHKey() *schema.Resource {
 				Description: "The date on which the key was last used in RFC3339 format.",
 			},
 			lastUsedTimestampKey: {
-				Type:        schema.TypeString,
+				Type:        schema.TypeInt,
 				Computed:    true,
 				Description: "The date on which the key was last used as a unix timestamp.",
 			},
@@ -108,15 +107,29 @@ func resourceSSHKeyRead(ctx context.Context, d *schema.ResourceData, m interface
 
 	key, err := config.client.GetSSHKey(ctx, int(id))
 	if err != nil {
-		if strings.Contains(err.Error(), "404") {
-			d.SetId("")
-			return diags
-		}
+		return diag.FromErr(err)
+	}
+
+	if key == nil {
+		d.SetId("")
+		return diags
+	}
+
+	user, err := config.client.GetCurrentUser(ctx)
+	if err != nil {
 		return diag.FromErr(err)
 	}
 
 	if err := setKey(d, key); err != nil {
 		return diag.FromErr(err)
+	}
+
+	if err := d.Set(userKey, user.Username); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting user key: %s", err))
+	}
+
+	if err := d.Set(canonicalUserKey, user.CanonicalName); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting canonical user key: %s", err))
 	}
 
 	return diags
@@ -130,8 +143,21 @@ func resourceSSHKeyCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		return diag.FromErr(err)
 	}
 
+	user, err := config.client.GetCurrentUser(ctx)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
 	if err := setKey(d, key); err != nil {
 		return diag.FromErr(err)
+	}
+
+	if err := d.Set(userKey, user.Username); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting user key: %s", err))
+	}
+
+	if err := d.Set(canonicalUserKey, user.CanonicalName); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting canonical user key: %s", err))
 	}
 
 	return diag.Diagnostics{}

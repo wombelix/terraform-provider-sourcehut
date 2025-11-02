@@ -48,6 +48,16 @@ func resourcePGPKey() *schema.Resource {
 				Computed:    true,
 				Description: "The date on which the key was authorized as a unix timestamp.",
 			},
+			userKey: {
+				Type:        schema.TypeString,
+				Computed:    true,
+				Description: "The name of the user that owns the key (eg. 'example').",
+			},
+			canonicalUserKey: {
+				Type:        schema.TypeString,
+				Computed:    true,
+				Description: "The canonical name of the user that owns the key (eg. '~example').",
+			},
 			fingerprintKey: {
 				Type:        schema.TypeString,
 				Computed:    true,
@@ -78,7 +88,25 @@ func resourcePGPKeyRead(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.FromErr(err)
 	}
 
-	return resourcePGPKeyRefresh(key, d)
+	user, err := config.client.GetCurrentUser(context.Background())
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	diags = resourcePGPKeyRefresh(key, d)
+	if diags.HasError() {
+		return diags
+	}
+
+	if err := d.Set(userKey, user.Username); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting user key: %s", err))
+	}
+
+	if err := d.Set(canonicalUserKey, user.CanonicalName); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting canonical user key: %s", err))
+	}
+
+	return diags
 }
 
 func resourcePGPKeyCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
@@ -89,7 +117,25 @@ func resourcePGPKeyCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		return diag.FromErr(err)
 	}
 
-	return resourcePGPKeyRefresh(key, d)
+	user, err := config.client.GetCurrentUser(context.Background())
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	diags := resourcePGPKeyRefresh(key, d)
+	if diags.HasError() {
+		return diags
+	}
+
+	if err := d.Set(userKey, user.Username); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting user key: %s", err))
+	}
+
+	if err := d.Set(canonicalUserKey, user.CanonicalName); err != nil {
+		return diag.FromErr(fmt.Errorf("error setting canonical user key: %s", err))
+	}
+
+	return diags
 }
 
 func resourcePGPKeyDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
