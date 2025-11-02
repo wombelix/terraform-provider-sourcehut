@@ -15,7 +15,8 @@ ago and is now in its
 From version v1.0.0 of the provider uses the GraphQL API directly and
 doesn't rely on the project
 [sourcehut-go](https://git.sr.ht/~wombelix/sourcehut-go) and the legacy
-REST API anymore. This is a breaking change,
+REST API anymore. This is a breaking change, you have to update to the
+latest version and switch over to a new Oauth2 personal access token (PAT),
 see [Usage](#usage) for more details.
 
 ---
@@ -46,7 +47,7 @@ terraform {
   required_providers {
     sourcehut = {
       source  = "wombelix/sourcehut"
-      version = "0.2.0"
+      version = "1.0.0"
 
       # SRHT_TOKEN env var
     }
