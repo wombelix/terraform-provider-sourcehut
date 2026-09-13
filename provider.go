@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"git.sr.ht/~wombelix/terraform-provider-sourcehut/internal/client"
+	"github.com/wombelix/terraform-provider-sourcehut/internal/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 

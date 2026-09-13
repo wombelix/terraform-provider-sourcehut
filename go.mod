@@ -1,4 +1,4 @@
-module git.sr.ht/~wombelix/terraform-provider-sourcehut
+module github.com/wombelix/terraform-provider-sourcehut
 
 go 1.24.0
 
