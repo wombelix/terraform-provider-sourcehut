@@ -23,11 +23,11 @@ repos:
       hooks:
         -   id: reuse
   -   repo: https://github.com/commitizen-tools/commitizen
-      rev: v4.10.0
+      rev: v4.18.1
       hooks:
         -   id: commitizen
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.29.1
+    rev: v8.30.0
     hooks:
       - id: gitleaks
   # Project specific
@@ -39,9 +39,10 @@ repos:
   #    - id: tofu_tflint
   # Golang
   -   repo: https://github.com/golangci/golangci-lint
-      rev: v2.6.0
+      rev: v2.13.2
       hooks:
       -   id: golangci-lint
+      -   id: golangci-lint-fmt
       -   id: golangci-lint-config-verify
   # AWS Cloudformation
   #-   repo: https://github.com/aws-cloudformation/cfn-lint
@@ -83,6 +84,6 @@ repos:
   #  rev: v25.12.1
   # GitHub Actions
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.10
+    rev: v1.7.12
     hooks:
       - id: actionlint-docker
