@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wombelix/terraform-provider-sourcehut/internal/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/wombelix/terraform-provider-sourcehut/internal/client"
 )
 
 const (
