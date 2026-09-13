@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 Dominik Wombacher <dominik@wombacher.cc>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+name: Mirror
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  mirror:
+    uses: wombelix/build-helper-scripts/.github/workflows/mirror.yml@main
+    permissions:
+      id-token: write
+      contents: read
