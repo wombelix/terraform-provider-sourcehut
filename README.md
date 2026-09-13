@@ -14,15 +14,17 @@ ago and is now in its
 [final phase of removal](https://sourcehut.org/blog/2025-09-01-whats-cooking-q3-2025/).
 From version v1.0.0 of the provider uses the GraphQL API directly and
 doesn't rely on the project
-[sourcehut-go](https://git.sr.ht/~wombelix/sourcehut-go) and the legacy
+[sourcehut-go](https://github.com/wombelix/sourcehut-go) and the legacy
 REST API anymore. This is a breaking change, you have to update to the
 latest version and switch over to a new Oauth2 personal access token (PAT),
 see [Usage](#usage) for more details.
 
 ---
 
-[![REUSE status](https://api.reuse.software/badge/git.sr.ht/~wombelix/terraform-provider-sourcehut)](https://api.reuse.software/info/git.sr.ht/~wombelix/terraform-provider-sourcehut)
-[![builds.sr.ht status](https://builds.sr.ht/~wombelix/terraform-provider-sourcehut.svg)](https://builds.sr.ht/~wombelix/terraform-provider-sourcehut?)
+<!-- markdownlint-disable MD013 -->
+[![REUSE status](https://api.reuse.software/badge/github.com/wombelix/terraform-provider-sourcehut)](https://api.reuse.software/info/github.com/wombelix/terraform-provider-sourcehut)
+[![Mirror](https://github.com/wombelix/terraform-provider-sourcehut/actions/workflows/mirror.yml/badge.svg)](https://github.com/wombelix/terraform-provider-sourcehut/actions/workflows/mirror.yml)
+<!-- markdownlint-enable MD013 -->
 
 ## Table of Contents
 
@@ -41,7 +43,7 @@ registry.
 
 Example usage in a `provider.tf` file:
 
-```
+```hcl
 terraform {
   required_version = ">= 1.8"
   required_providers {
@@ -60,7 +62,7 @@ will be read from Environment variable `SRHT_TOKEN`.
 
 The recommended scope is:
 
-```
+```text
 git.sr.ht/PROFILE:RO git.sr.ht/REPOSITORIES:RW
 paste.sr.ht/PROFILE:RO paste.sr.ht/PASTES:RW
 meta.sr.ht/PGP_KEYS:RW meta.sr.ht/SSH_KEYS:RW meta.sr.ht/PROFILE:RO
@@ -83,38 +85,30 @@ registry.
 ## Source
 
 The primary location is:
-[git.sr.ht/~wombelix/terraform-provider-sourcehut](https://git.sr.ht/~wombelix/terraform-provider-sourcehut)
+[github.com/wombelix/terraform-provider-sourcehut](https://github.com/wombelix/terraform-provider-sourcehut)
 
 Mirrors are available on
-[Codeberg](https://codeberg.org/wombelix/terraform-provider-sourcehut),
-[Gitlab](https://gitlab.com/wombelix/terraform-provider-sourcehut)
-and
-[Github](https://github.com/wombelix/terraform-provider-sourcehut).
+[Codeberg](https://codeberg.org/wombelix/terraform-provider-sourcehut) and
+[Gitlab](https://gitlab.com/wombelix/terraform-provider-sourcehut).
 
 Publishing to
 [registry.terraform.io](https://registry.terraform.io/providers/wombelix/sourcehut/latest)
 and
 [search.opentofu.org](https://search.opentofu.org/provider/wombelix/sourcehut/latest)
-is handled by the GitHub mirror.
+is handled from GitHub.
 
 ## Contribute
 
-Please don't hesitate to provide Feedback,
-open an Issue or create a Pull / Merge Request.
+Pick the platform you prefer and are most comfortable with.
 
-Just pick the workflow or platform you prefer and are most comfortable with.
-
-Feedback, bug reports or patches to my sr.ht list
-[~wombelix/inbox@lists.sr.ht](https://lists.sr.ht/~wombelix/inbox) or via
-[Email and Instant Messaging](https://dominik.wombacher.cc/pages/contact.html)
-are also always welcome.
+Provide feedback, open an issue or create a pull / merge request.
 
 ## License
 
 Unless otherwise stated: `BSD-2-Clause`
 
-All files contain license information either as
-`header comment` or `corresponding .license` file.
+All files contain license information either as a
+`header comment` or a `corresponding .license` file.
 
 [REUSE](https://reuse.software) from the [FSFE](https://fsfe.org/)
-implemented to verify license and copyright compliance.
+is implemented to verify license and copyright compliance.
