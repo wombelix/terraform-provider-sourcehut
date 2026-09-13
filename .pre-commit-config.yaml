@@ -2,32 +2,87 @@
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
-
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+  # Defaults
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v6.0.0
+      hooks:
+        -   id: trailing-whitespace
+        -   id: end-of-file-fixer
+        -   id: check-yaml
+            #exclude: '^cfn/.*'
+        -   id: check-json
+        -   id: check-added-large-files
+  -   repo: https://github.com/DavidAnson/markdownlint-cli2
+      rev: v0.23.2
+      hooks:
+        -   id: markdownlint-cli2-docker
+            exclude: CHANGELOG.md|^docs/
+  -   repo: https://github.com/fsfe/reuse-tool
+      rev: v6.2.0
+      hooks:
+        -   id: reuse
+  -   repo: https://github.com/commitizen-tools/commitizen
+      rev: v4.10.0
+      hooks:
+        -   id: commitizen
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.29.1
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
--   repo: https://github.com/golangci/golangci-lint
-    rev: v2.6.0
+      - id: gitleaks
+  # Project specific
+  # OpenTofu
+  #- repo: https://github.com/tofuutils/pre-commit-opentofu
+  #  rev: v2.2.2
+  #  hooks:
+  #    - id: tofu_fmt
+  #    - id: tofu_tflint
+  # Golang
+  -   repo: https://github.com/golangci/golangci-lint
+      rev: v2.6.0
+      hooks:
+      -   id: golangci-lint
+      -   id: golangci-lint-config-verify
+  # AWS Cloudformation
+  #-   repo: https://github.com/aws-cloudformation/cfn-lint
+  #    rev: v1.38.2
+  #    hooks:
+  #      - id: cfn-lint
+  #        files: cfn/.*\.(json|yml|yaml)$
+  # Bash
+  #-   repo: https://github.com/shellcheck-py/shellcheck-py
+  #    rev: v0.10.0.1
+  #    hooks:
+  #      - id: shellcheck
+  #        args:
+  #          - -x
+  # reStructuredText
+  #-   repo: https://github.com/rstcheck/rstcheck
+  #    rev: v6.2.4
+  #    hooks:
+  #    -   id: rstcheck
+  # Helm
+  #- repo: https://github.com/gruntwork-io/pre-commit
+  #  rev: v0.1.24
+  #  hooks:
+  #      - id: helmlint
+  # Ruff (Python linter and code formatter)
+  #- repo: https://github.com/astral-sh/ruff-pre-commit
+  #  # Ruff version.
+  #  rev: v0.14.6
+  #  hooks:
+  #    # Run the linter.
+  #    - id: ruff-check
+  #      args: [ --fix ]
+  #    # Run the formatter.
+  #    - id: ruff-format
+  # Ansible
+  #- hooks:
+  #  - id: ansible-lint
+  #  repo: https://github.com/ansible-community/ansible-lint
+  #  rev: v25.12.1
+  # GitHub Actions
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.10
     hooks:
-    -   id: golangci-lint
-    -   id: golangci-lint-config-verify
--   repo: https://github.com/markdownlint/markdownlint
-    rev: v0.12.0
-    hooks:
-    -   id: markdownlint_docker
-        exclude: CHANGELOG.md|^docs/
--   repo: https://github.com/fsfe/reuse-tool
-    rev: v6.2.0
-    hooks:
-    -   id: reuse
--   repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.9.1
-    hooks:
-    -   id: commitizen
+      - id: actionlint-docker
