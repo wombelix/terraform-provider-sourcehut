@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
+default_install_hook_types: [pre-commit, commit-msg]
+
 repos:
   # Defaults
   -   repo: https://github.com/pre-commit/pre-commit-hooks
