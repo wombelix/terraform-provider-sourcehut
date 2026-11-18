@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 default_install_hook_types: [pre-commit, commit-msg]
+default_stages: [pre-commit]
 
 repos:
   # Defaults
